@@ -1,4 +1,20 @@
-<h1>Hello World</h1>
-<p>User List</p>
-
-<app-user-list></app-user-list>
+<div class="flex gap-12 justify-center">
+  <div>
+    <app-small-card title="Total Revenue" price="50,000"> </app-small-card>
+    <app-big-card
+      title="Total Earnings"
+      content="$39k"
+      number="13.8"
+      [isArrowUp]="true"
+    ></app-big-card>
+  </div>
+  <div>
+    <app-small-card title="Revenue" price="1,250"></app-small-card>
+    <app-big-card
+      title="Products Sold"
+      content="2453"
+      number="13.8"
+      [isArrowUp]="false"
+    ></app-big-card>
+  </div>
+</div>

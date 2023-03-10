@@ -1,0 +1,19 @@
+<div class="w-[300px] shadow-md px-4 py-4 mx-auto flex flex-col gap-6 border">
+  <p class="text-gray-500">{{ title }}</p>
+
+  <div>
+    <p class="font-bold text-2xl">{{ content }}</p>
+
+    <span
+      [ngClass]="{ 'text-red-600': isArrowUp, 'text-green-600': !isArrowUp }"
+    >
+      {{ isArrowUp ? "&darr;" : "&uarr;" }} {{ number }} %
+    </span>
+
+    <!-- <span class="text-red-600 text-xs font-bold"
+    > -->
+    <!-- <span *ngIf="!isArrowUp" class="text-green-600 text-xs font-bold"
+      >{{ isArrowUp ? "&darr;" : "&uarr;" }} {{ number }}%</span
+    > -->
+  </div>
+</div>
