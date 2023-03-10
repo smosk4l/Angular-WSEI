@@ -1,6 +1,7 @@
 <div class="flex gap-12 justify-center">
   <div>
-    <app-small-card title="Total Revenue" price="50,000"> </app-small-card>
+    <app-small-card title="Total Revenue" price="50,000" [isGreen]="true">
+    </app-small-card>
     <app-big-card
       title="Total Earnings"
       content="$39k"
@@ -9,7 +10,8 @@
     ></app-big-card>
   </div>
   <div>
-    <app-small-card title="Revenue" price="1,250"></app-small-card>
+    <app-small-card title="Revenue" price="1,250" [isGreen]="false">
+    </app-small-card>
     <app-big-card
       title="Products Sold"
       content="2453"

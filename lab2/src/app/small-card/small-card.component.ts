@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
 export class SmallCardComponent {
   @Input() title = '';
   @Input() price = '';
-  @Input() color = 'green';
+  @Input() isGreen = false;
 }
