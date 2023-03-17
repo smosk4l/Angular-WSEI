@@ -1,1 +1,5 @@
-<div class="text-6xl">Hello World</div>
+<app-beer-list
+  (selectedBeer)="onBeerSelect($event)"
+  [beerList]="beerList"
+></app-beer-list>
+<app-beer-details *ngIf="selectedBeer" [beer]="selectedBeer"></app-beer-details>
