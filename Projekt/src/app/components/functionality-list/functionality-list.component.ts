@@ -26,9 +26,7 @@ export class FunctionalityListComponent implements OnInit {
     console.log(this.functionality);
   }
 
-  showFunctionalityDetails() {
-    // Implementacja funkcji wyświetlającej szczegóły funkcjonalności
-  }
+  showFunctionalityDetails() {}
 
   deleteFunctionality(id: string) {
     this.functionalityService.deleteFunctionality(id).subscribe(

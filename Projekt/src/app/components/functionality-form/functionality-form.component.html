@@ -29,27 +29,33 @@
       </div>
 
       <div class="flex flex-col my-4 gap-2">
-        <label htmlFor="description">Priority</label>
-        <input
-          type="text"
+        <label htmlFor="priority">Priority</label>
+        <select
           id="priority"
           name="priority"
           formControlName="priority"
           required
           class="w-full border-gray-300 px-3 py-2 rounded-sm shadow-sm focus:outline-none focus:border-indigo-500"
-        />
+        >
+          <option *ngFor="let priority of priorityValues" [value]="priority">
+            {{ priority }}
+          </option>
+        </select>
       </div>
 
       <div class="flex flex-col my-4 gap-2">
         <label htmlFor="status">Status</label>
-        <input
-          type="text"
+        <select
           id="status"
           name="status"
           formControlName="status"
           required
           class="w-full border-gray-300 px-3 py-2 rounded-sm shadow-sm focus:outline-none focus:border-indigo-500"
-        />
+        >
+          <option *ngFor="let status of workStatusValues" [value]="status">
+            {{ status }}
+          </option>
+        </select>
       </div>
 
       <div class="flex flex-col my-4 gap-2">
