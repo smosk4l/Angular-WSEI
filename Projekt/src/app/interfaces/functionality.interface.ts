@@ -7,8 +7,6 @@ export interface FunctionalityInterface {
   name: string;
   description: string;
   priority: string;
-  project: ProjectInterface;
-  owner: UserInterface;
   status: WorkStatus;
   addedDate: Date;
   startDate?: Date;

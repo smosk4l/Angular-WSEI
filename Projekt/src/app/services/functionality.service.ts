@@ -58,8 +58,6 @@ export class FunctionalityService {
       functionalityToUpdate.name = functionality.name;
       functionalityToUpdate.description = functionality.description;
       functionalityToUpdate.priority = functionality.priority;
-      functionalityToUpdate.project = functionality.project;
-      functionalityToUpdate.owner = functionality.owner;
       functionalityToUpdate.status = functionality.status;
       this.saveDataToLocalStorage();
       return of(functionalityToUpdate);

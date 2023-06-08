@@ -1,0 +1,30 @@
+<div class="max-w-[1200px] mt-4 mx-6 xl:mx-auto">
+  <h1 class="text-3xl text-center font-semibold">List of functionalities</h1>
+  <div
+    class="px-6 py-4 bg-white my-2 rounded-xl relative border shadow-sm"
+    *ngFor="let item of functionality"
+  >
+    <ul>
+      <li>
+        <h1 class="text-xl">Nazwa: {{ item.name }}</h1>
+      </li>
+      <li class="text-gray-400 text-sm my-2">Opis: {{ item.description }}</li>
+      <li class="text-gray-400 text-sm my-2">Priorytet: {{ item.priority }}</li>
+      <li class="text-gray-400 text-sm my-2">Status: {{ item.status }}</li>
+    </ul>
+
+    <div class="absolute right-4 top-4 rounded-full p-1">
+      <div class="flex gap-2 text-xl">
+        <button (click)="showFunctionalityDetails()">ℹ︎</button>
+        <button (click)="deleteFunctionality(item.ID)">❌</button>
+        <!-- Przekazanie id funkcjonalności -->
+      </div>
+    </div>
+  </div>
+  <button
+    (click)="addFunctionality()"
+    class="block px-4 text-xl font-bold text-white rounded-lg bg-blue-500 mt-6 mx-auto py-3"
+  >
+    Create functionality
+  </button>
+</div>
