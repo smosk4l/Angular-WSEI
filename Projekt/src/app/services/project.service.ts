@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { ProjectInterface } from '../interfaces/project.interface';
 import { Observable, of } from 'rxjs';
 
@@ -6,8 +6,14 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root',
 })
 export class ProjectService {
-  private localStorageKey = 'tasks';
-  private projects: ProjectInterface[] = [];
+  private localStorageKey = 'projects';
+  private projects: ProjectInterface[] = [
+    {
+      ID: '1',
+      name: 'Projekt testowy',
+      description: 'Oto testowy projekt',
+    },
+  ];
 
   private getDataFromLocalStorage(): void {
     const data = localStorage.getItem(this.localStorageKey);

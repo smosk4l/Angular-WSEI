@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CreateProjectComponent } from './components/create-project/create-project.component';
+import { UserProjectsComponent } from './components/user-projects/user-projects.component';
 
 @NgModule({
-  declarations: [AppComponent, CreateProjectComponent],
-  imports: [BrowserModule, AppRoutingModule],
+  declarations: [AppComponent, UserProjectsComponent],
+  imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })
