@@ -26,7 +26,9 @@ export class FunctionalityListComponent implements OnInit {
     console.log(this.functionality);
   }
 
-  showFunctionalityDetails() {}
+  showFunctionalityDetails(ID: string) {
+    this.router.navigate(['/functionalities', ID]);
+  }
 
   deleteFunctionality(id: string) {
     this.functionalityService.deleteFunctionality(id).subscribe(

@@ -28,7 +28,7 @@ export class FunctionalityFormComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     const currentDate = new Date().toISOString().split('T')[0];
     const addedDateControl = new FormControl({
       value: currentDate,
