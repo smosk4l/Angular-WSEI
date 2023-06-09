@@ -37,11 +37,25 @@ export class TaskService {
   }
 
   createTask(task: TaskInterface): Observable<TaskInterface> {
-    this.tasks.push(task);
+    const taskCopy = { ...task }; // Create a copy of the task object
+    const functionalityCopy = {
+      // Create a copy of the selected functionality object with necessary properties
+      ID: taskCopy.functionalityID,
+      name: taskCopy.functionality.name,
+      description: taskCopy.functionality.description,
+      priority: taskCopy.functionality.priority,
+      status: taskCopy.functionality.status,
+      addedDate: taskCopy.functionality.addedDate,
+      startDate: taskCopy.functionality.startDate,
+      endDate: taskCopy.functionality.endDate,
+      timeSpent: taskCopy.functionality.timeSpent,
+      tasks: [],
+    };
+    taskCopy.functionality = functionalityCopy; // Assign the copied functionality object to the task
+    this.tasks.push(taskCopy);
     this.saveDataToLocalStorage();
-    return of(task);
+    return of(taskCopy);
   }
-
   updateTask(task: TaskInterface): Observable<TaskInterface> {
     const taskToUpdate = this.tasks.find((t) => t.ID === task.ID);
 

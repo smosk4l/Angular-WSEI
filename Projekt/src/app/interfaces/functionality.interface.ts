@@ -13,5 +13,5 @@ export interface FunctionalityInterface {
   startDate?: Date;
   endDate?: Date;
   timeSpent?: number;
-  tasks: TaskInterface[];
+  tasks?: TaskInterface[];
 }

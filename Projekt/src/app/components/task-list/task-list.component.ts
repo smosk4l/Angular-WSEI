@@ -68,10 +68,10 @@ export class TaskListComponent implements OnInit {
   }
 
   updateFunctionalityStatus(functionality: FunctionalityInterface) {
-    const hasDoingTask = functionality.tasks.some(
+    const hasDoingTask = functionality.tasks?.some(
       (task) => task.state === WorkStatus.Doing
     );
-    const allTasksDone = functionality.tasks.every(
+    const allTasksDone = functionality.tasks?.every(
       (task) => task.state === WorkStatus.Done
     );
 

@@ -93,18 +93,22 @@ export class TaskFormComponent implements OnInit {
       name: this.taskForm.value.name,
       description: this.taskForm.value.description,
       priority: this.taskForm.value.priority,
+      functionalityID: selectedFunctionality.ID,
+      functionality: selectedFunctionality,
       state: this.taskForm.value.status,
       addedDate: new Date(addedDateValue),
       startDate: this.taskForm.value.startDate,
       endDate: this.taskForm.value.endDate,
       assignedUser: this.taskForm.value.owner,
-      functionalityID: selectedFunctionality.ID, // Przypisanie wartości selectedFunctionality.ID do pola functionalityID
-      functionality: selectedFunctionality, // Przypisanie wybranej funkcjonalności do pola functionality
     };
 
     this.taskService.createTask(newTask).subscribe(
       (task: TaskInterface) => {
         console.log(task);
+        if (!selectedFunctionality.tasks) {
+          selectedFunctionality.tasks = []; // Inicjalizuj tablicę zadaniami, jeśli nie istnieje
+        }
+        selectedFunctionality.tasks.push(task); // Dodaj zadanie do listy zadań funkcjonalności
         this.router.navigateByUrl('/functionalities');
       },
       (error) => console.log(error)
