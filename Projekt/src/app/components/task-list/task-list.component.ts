@@ -68,17 +68,25 @@ export class TaskListComponent implements OnInit {
   }
 
   updateFunctionalityStatus(functionality: FunctionalityInterface) {
-    const hasDoingTask = functionality.tasks?.some(
-      (task) => task.state === WorkStatus.Doing
-    );
-    const allTasksDone = functionality.tasks?.every(
-      (task) => task.state === WorkStatus.Done
-    );
+    if (functionality.tasks && functionality.tasks.length > 0) {
+      const hasDoingTask = functionality.tasks.some(
+        (task) => task.state === WorkStatus.Doing
+      );
+      const allTasksDone = functionality.tasks.every(
+        (task) => task.state === WorkStatus.Done
+      );
 
-    if (hasDoingTask) {
-      functionality.status = WorkStatus.Doing;
-    } else if (allTasksDone) {
-      functionality.status = WorkStatus.Done;
+      if (hasDoingTask) {
+        functionality.status = WorkStatus.Doing;
+      } else if (allTasksDone) {
+        functionality.status = WorkStatus.Done;
+      } else {
+        functionality.status = WorkStatus.Todo;
+      }
+    } else {
+      if (functionality.status === WorkStatus.Doing) {
+        functionality.status = WorkStatus.Done;
+      }
     }
   }
 }

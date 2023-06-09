@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { TaskInterface } from '../interfaces/task.interface';
+import { FunctionalityInterface } from '../interfaces/functionality.interface';
 import { Observable, of } from 'rxjs';
-
+import { WorkStatus } from '../enums/workStatus.enum';
 @Injectable({
   providedIn: 'root',
 })
@@ -37,25 +38,39 @@ export class TaskService {
   }
 
   createTask(task: TaskInterface): Observable<TaskInterface> {
-    const taskCopy = { ...task }; // Create a copy of the task object
-    const functionalityCopy = {
-      // Create a copy of the selected functionality object with necessary properties
-      ID: taskCopy.functionalityID,
-      name: taskCopy.functionality.name,
-      description: taskCopy.functionality.description,
-      priority: taskCopy.functionality.priority,
-      status: taskCopy.functionality.status,
-      addedDate: taskCopy.functionality.addedDate,
-      startDate: taskCopy.functionality.startDate,
-      endDate: taskCopy.functionality.endDate,
-      timeSpent: taskCopy.functionality.timeSpent,
-      tasks: [],
-    };
-    taskCopy.functionality = functionalityCopy; // Assign the copied functionality object to the task
+    const taskCopy = { ...task }; // Tworzymy kopię obiektu zadania
+    const functionalityCopy = { ...taskCopy.functionality }; // Tworzymy kopię obiektu funkcjonalności
+    taskCopy.functionality = functionalityCopy; // Przypisujemy skopiowany obiekt funkcjonalności do zadania
     this.tasks.push(taskCopy);
     this.saveDataToLocalStorage();
     return of(taskCopy);
   }
+  deleteTask(ID: string): Observable<boolean> {
+    const index = this.tasks.findIndex((task) => task.ID === ID);
+
+    if (index !== -1) {
+      const deletedTask = this.tasks.splice(index, 1)[0];
+      const functionality = deletedTask.functionality;
+
+      if (functionality && functionality.tasks) {
+        const taskIndex = functionality.tasks.findIndex(
+          (task) => task.ID === ID
+        );
+        if (taskIndex !== -1) {
+          functionality.tasks.splice(taskIndex, 1);
+        }
+
+        // Sprawdź status funkcjonalności po usunięciu zadania
+        this.updateFunctionalityStatus(functionality);
+      }
+
+      this.saveDataToLocalStorage();
+      return of(true);
+    } else {
+      return of(false);
+    }
+  }
+
   updateTask(task: TaskInterface): Observable<TaskInterface> {
     const taskToUpdate = this.tasks.find((t) => t.ID === task.ID);
 
@@ -77,15 +92,19 @@ export class TaskService {
     }
   }
 
-  deleteTask(ID: string): Observable<boolean> {
-    const index = this.tasks.findIndex((task) => task.ID === ID);
+  // Dodaj tę funkcję do aktualizacji statusu funkcjonalności
+  private updateFunctionalityStatus(functionality: FunctionalityInterface) {
+    const hasDoingTask = functionality.tasks?.some(
+      (task) => task.state === WorkStatus.Doing
+    );
+    const allTasksDone = functionality.tasks?.every(
+      (task) => task.state === WorkStatus.Done
+    );
 
-    if (index !== -1) {
-      this.tasks.splice(index, 1);
-      this.saveDataToLocalStorage();
-      return of(true);
-    } else {
-      return of(false);
+    if (hasDoingTask) {
+      functionality.status = WorkStatus.Doing;
+    } else if (allTasksDone) {
+      functionality.status = WorkStatus.Done;
     }
   }
 }

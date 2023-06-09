@@ -68,6 +68,8 @@ export class FunctionalityListComponent implements OnInit {
         func.status = WorkStatus.Doing;
       } else if (allTasksDone) {
         func.status = WorkStatus.Done;
+      } else {
+        func.status = WorkStatus.Todo; // Dodaj tę linijkę, jeśli chcesz, aby status był ustawiany na "Pending", gdy nie ma żadnych zadań lub gdy nie wszystkie są zakończone
       }
     });
   }
