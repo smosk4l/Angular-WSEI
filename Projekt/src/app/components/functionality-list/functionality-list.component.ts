@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FunctionalityService } from 'src/app/services/functionality.service';
 import { Router } from '@angular/router';
 import { FunctionalityInterface } from 'src/app/interfaces/functionality.interface';
-
+import { TaskInterface } from 'src/app/interfaces/task.interface';
+import { WorkStatus } from 'src/app/enums/workStatus.enum';
 @Component({
   selector: 'app-functionality-list',
   templateUrl: './functionality-list.component.html',
@@ -19,6 +20,7 @@ export class FunctionalityListComponent implements OnInit {
       .getFunctionalities()
       .subscribe((functionality: FunctionalityInterface[]) => {
         this.functionality = functionality;
+        this.updateFunctionalityStatus();
       });
   }
 
@@ -37,6 +39,7 @@ export class FunctionalityListComponent implements OnInit {
         this.functionality = this.functionality.filter(
           (item) => item.ID !== id
         );
+        this.updateFunctionalityStatus();
       },
       (error) => {
         console.error('Wystąpił błąd podczas usuwania funkcjonalności:', error);
@@ -46,5 +49,26 @@ export class FunctionalityListComponent implements OnInit {
 
   addFunctionality() {
     this.router.navigate(['functionalities/create']);
+  }
+
+  editFunctionality(ID: string) {
+    this.router.navigate(['/functionality/edit', ID]);
+  }
+
+  private updateFunctionalityStatus() {
+    this.functionality.forEach((func) => {
+      const hasDoingTask = func.tasks?.some(
+        (task) => task.state === WorkStatus.Doing
+      );
+      const allTasksDone = func.tasks?.every(
+        (task) => task.state === WorkStatus.Done
+      );
+
+      if (hasDoingTask) {
+        func.status = WorkStatus.Doing;
+      } else if (allTasksDone) {
+        func.status = WorkStatus.Done;
+      }
+    });
   }
 }

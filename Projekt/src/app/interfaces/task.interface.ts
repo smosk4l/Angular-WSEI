@@ -8,7 +8,8 @@ export interface TaskInterface {
   description: string;
   priority: string;
   functionality: FunctionalityInterface;
-  estimatedTime: number;
+  functionalityID: string;
+  // estimatedTime: number;
   state: WorkStatus;
   addedDate: Date;
   startDate?: Date;

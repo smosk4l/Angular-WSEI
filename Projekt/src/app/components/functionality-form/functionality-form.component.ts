@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FunctionalityInterface } from 'src/app/interfaces/functionality.interface';
 import { FunctionalityService } from 'src/app/services/functionality.service';
+import { TaskInterface } from 'src/app/interfaces/task.interface';
 import {
   FormBuilder,
   FormControl,
@@ -50,8 +51,8 @@ export class FunctionalityFormComponent implements OnInit {
 
     this.functionalitiesService
       .getFunctionalities()
-      .subscribe((functionality: FunctionalityInterface[]) => {
-        this.functionalities = functionality;
+      .subscribe((functionalities: FunctionalityInterface[]) => {
+        this.functionalities = functionalities;
       });
   }
 
@@ -73,6 +74,7 @@ export class FunctionalityFormComponent implements OnInit {
       addedDate: new Date(addedDateValue),
       startDate: this.functionalityForm.value.startDate || undefined,
       endDate: this.functionalityForm.value.endDate || undefined,
+      tasks: [], // Dodana właściwość "tasks" jako pusta tablica
     };
 
     this.functionalitiesService.createFunctionality(functionality).subscribe(

@@ -4,10 +4,19 @@ import { FunctionalityFormComponent } from './components/functionality-form/func
 
 import { FunctionalityListComponent } from './components/functionality-list/functionality-list.component';
 import { UserProjectsComponent } from './components/user-projects/user-projects.component';
+import { TaskListComponent } from './components/task-list/task-list.component';
+import { TaskFormComponent } from './components/task-form/task-form.component';
+import { FunctionalityEditComponent } from './components/functionality-edit/functionality-edit.component';
 const routes: Routes = [
   { path: '', component: UserProjectsComponent },
   { path: 'functionalities', component: FunctionalityListComponent },
   { path: 'functionalities/create', component: FunctionalityFormComponent },
+  { path: 'functionalities/:id', component: TaskListComponent },
+  { path: 'task/create', component: TaskFormComponent },
+  {
+    path: 'functionality/edit/:id',
+    component: FunctionalityEditComponent,
+  },
 ];
 
 @NgModule({

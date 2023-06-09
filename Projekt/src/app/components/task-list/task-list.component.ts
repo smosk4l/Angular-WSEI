@@ -4,6 +4,7 @@ import { FunctionalityService } from 'src/app/services/functionality.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TaskService } from 'src/app/services/task.service';
 import { TaskInterface } from 'src/app/interfaces/task.interface';
+import { WorkStatus } from 'src/app/enums/workStatus.enum';
 
 @Component({
   selector: 'app-task-list',
@@ -49,7 +50,13 @@ export class TaskListComponent implements OnInit {
   }
 
   deleteTask(ID: string) {
-    // Implementacja usuwania zadania
+    this.taskService.deleteTask(ID).subscribe(
+      () => {
+        console.log('Task został usunięty');
+        this.tasks = this.tasks.filter((item) => item.ID !== ID);
+      },
+      (error) => console.log(error)
+    );
   }
 
   showTaskDetails(ID: string) {
@@ -58,5 +65,20 @@ export class TaskListComponent implements OnInit {
 
   addTask() {
     this.router.navigate(['/task/create']);
+  }
+
+  updateFunctionalityStatus(functionality: FunctionalityInterface) {
+    const hasDoingTask = functionality.tasks.some(
+      (task) => task.state === WorkStatus.Doing
+    );
+    const allTasksDone = functionality.tasks.every(
+      (task) => task.state === WorkStatus.Done
+    );
+
+    if (hasDoingTask) {
+      functionality.status = WorkStatus.Doing;
+    } else if (allTasksDone) {
+      functionality.status = WorkStatus.Done;
+    }
   }
 }
